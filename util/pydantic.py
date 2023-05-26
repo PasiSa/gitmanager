@@ -56,6 +56,7 @@ class PydanticModelMeta(ModelMetaclass):
         print(f"Pydantic weirdness -- cls: {cls}, name: {name}")
         if "__annotations__" in namespace:
             for attr, type in namespace["__annotations__"].items():
+                print(f"Pydanting annotations -- attr: {attr}, type: {type}")
                 if attr in namespace:
                     continue
                 if type == UndefinedType:
@@ -63,6 +64,7 @@ class PydanticModelMeta(ModelMetaclass):
                 elif get_origin(type) == Union:
                     if UndefinedType in get_args(type):
                         namespace[attr] = undefined_field
+                        print(f"Pydantic namespace: {namespace[attr]}")
 
         return super().__new__(cls, name, bases, namespace, **kwargs) # type: ignore
 
