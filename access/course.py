@@ -33,7 +33,7 @@ def _get_datetime(value: Any) -> Optional[datetime]:
 class SimpleDuration(PydanticModel):
     __root__: str
 
-    @root_validator
+    @root_validator(allow_reuse=True)
     def simple_duration(cls, values: dict):
         delta = values.get('__root__')
         if not isinstance(delta, str):
