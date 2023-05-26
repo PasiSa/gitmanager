@@ -53,6 +53,7 @@ class PydanticModelMeta(ModelMetaclass):
             namespace: Dict[str, Any],
             **kwargs: Any
             ) -> "PydanticModelMeta":
+        print(f"Pydantic weirdness -- cls: {cls}, name: {name}")
         if "__annotations__" in namespace:
             for attr, type in namespace["__annotations__"].items():
                 if attr in namespace:
