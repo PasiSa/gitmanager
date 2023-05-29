@@ -6,7 +6,7 @@ import os
 import time
 
 from django.conf import settings
-from pydantic import AnyHttpUrl, Field, BaseModel
+from pydantic import AnyHttpUrl, Field
 from pydantic.class_validators import root_validator, validator
 from pydantic.fields import PrivateAttr
 from pydantic.types import NonNegativeInt, PositiveInt, confloat
@@ -66,12 +66,10 @@ class ConfigureOptions(PydanticModel):
     url: str = settings.DEFAULT_GRADER_URL or ... # type: ignore
 
 
-class RevealRuleOptions(BaseModel):
+class RevealRuleOptions(PydanticModel):
     trigger: Literal["immediate", "manual", "time", "deadline", "deadline_all", "completion"]
     time: NotRequired[AnyDate]
     delay_minutes: NotRequired[NonNegativeInt]
-    #time: date
-    #delay_minutes: int
 
 
 class ExerciseConfig(PydanticModel):
